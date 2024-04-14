@@ -101,7 +101,7 @@ def check_version():
     ctx = SESSION_CONTEXT.get()
 
     try:
-        response = requests.get("https://pypi.org/pypi/mentat/json")
+        response = requests.get("https://pypi.org/pypi/mentat/json", timeout=60)
         data = response.json()
         latest_version = data["info"]["version"]
         current_version = __version__
