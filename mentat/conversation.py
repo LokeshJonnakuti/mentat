@@ -27,6 +27,7 @@ from mentat.parsers.parser import ParsedLLMResponse
 from mentat.session_context import SESSION_CONTEXT
 from mentat.transcripts import ModelMessage, TranscriptMessage, UserMessage
 from mentat.utils import add_newline
+from security import safe_command
 
 
 class Conversation:
@@ -317,8 +318,7 @@ class Conversation:
         ctx.stream.send("Command output:", color="cyan")
 
         try:
-            process = subprocess.Popen(
-                command,
+            process = safe_command.run(subprocess.Popen, command,
                 cwd=ctx.cwd,
                 text=True,
                 stdout=subprocess.PIPE,
